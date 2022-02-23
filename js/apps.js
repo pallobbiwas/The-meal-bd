@@ -4,18 +4,31 @@ const clickButton = () => {
 
 const loadData = () => {
   const searchValue = getIdFromUi("search-input");
-  const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchValue}`;
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => displayData(data.meals));
+  if (searchValue == "") {
+    document.getElementById('hide').style.display = 'block'
+  } else {
+    document.getElementById('hide').style.display = 'none'
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchValue}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => displayData(data.meals));
+  }
 };
 //for loop function
 const displayData = (meals) => {
-  meals.forEach((meal) => {
-    displayMeal(meal, "meal-container", true);
-    // console.log(meal);
-  });
-};
+  const mealontainers = document.getElementById("meal-container");
+  mealontainers.textContent = "";
+  if(meals == null){
+    document.getElementById('hides').style.display = 'block'
+  }
+  else{
+    document.getElementById('hides').style.display = 'none'
+    meals.forEach((meal) => {
+      displayMeal(meal, "meal-container", true);
+      // console.log(meal);
+    });
+  };
+  }
 
 //display meal detailes
 
