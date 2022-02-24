@@ -5,9 +5,9 @@ const clickButton = () => {
 const loadData = () => {
   const searchValue = getIdFromUi("search-input");
   if (searchValue == "") {
-    document.getElementById('hide').style.display = 'block'
+    document.getElementById("hide").style.display = "block";
   } else {
-    document.getElementById('hide').style.display = 'none'
+    document.getElementById("hide").style.display = "none";
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchValue}`;
     fetch(url)
       .then((res) => res.json())
@@ -18,17 +18,16 @@ const loadData = () => {
 const displayData = (meals) => {
   const mealontainers = document.getElementById("meal-container");
   mealontainers.textContent = "";
-  if(meals == null){
-    document.getElementById('hides').style.display = 'block'
-  }
-  else{
-    document.getElementById('hides').style.display = 'none'
+  if (meals == null) {
+    document.getElementById("hides").style.display = "block";
+  } else {
+    document.getElementById("hides").style.display = "none";
     meals.forEach((meal) => {
       displayMeal(meal, "meal-container", true);
       // console.log(meal);
     });
-  };
   }
+};
 
 //display meal detailes
 
@@ -50,17 +49,24 @@ const displayMeal = (meal, uiId, isIt) => {
     mealontainer.appendChild(div);
   } else if (isIt == false) {
     mealontainer.innerHTML = `
-        <div onclick = "displaySingelIteam (${meal.idMeal})" class="card">
-            <img  src="${
-              meal.strMealThumb
-            }" class="card-img-top img-fluid h-50" alt="...">
+    <div class="toast w-75 show mx-auto">
+      <div class="toast-header">
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast"></button>
+      </div>
+      <div class="toast-body d-flex">
+            <div>
+              <img src="${
+               meal.strMealThumb
+                }" class="card-img-top img-fluid w-100 " alt="...">
+            </div>
             <div class="card-body">
-            <h5 class="card-title">${meal.strMeal}</h5>
-            <h5 class="card-title">${meal.strTags}</h5>
-            <p class="card-text">${meal.strInstructions.slice(0, 200)}</p>
-            <a href="${meal.strSource}" target = "blank"> go for more</a>
+                <h5 class="card-title">${meal.strMeal}</h5>
+                <p class="card-text">${meal.strInstructions.slice(0, 200)}</p>
+                <a href="${meal.strSource}" target="blank"> go for more</a>
             </div>
         </div>
+      </div>
+    </div>
     `;
   }
 };
