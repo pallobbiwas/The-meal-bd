@@ -7,11 +7,18 @@ const loadData = () => {
   if (searchValue == "") {
     document.getElementById("hide").style.display = "block";
   } else {
+
+    loading()
+
     document.getElementById("hide").style.display = "none";
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchValue}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => displayData(data.meals));
+      
+
+
+      // addLoading()
   }
 };
 //for loop function
@@ -19,6 +26,7 @@ const displayData = (meals) => {
   const mealontainers = document.getElementById("meal-container");
   mealontainers.textContent = "";
   if (meals == null) {
+    addLoading()
     document.getElementById("hides").style.display = "block";
   } else {
     document.getElementById("hides").style.display = "none";
@@ -32,7 +40,7 @@ const displayData = (meals) => {
 //display meal detailes
 
 const displayMeal = (meal, uiId, isIt) => {
-  // console.log(meal.idMeal);
+
   const mealontainer = document.getElementById(uiId);
   const div = document.createElement("div");
   if (isIt == true) {
@@ -46,6 +54,7 @@ const displayMeal = (meal, uiId, isIt) => {
             </div>
         </div>
     `;
+    addLoading()
     mealontainer.appendChild(div);
   } else if (isIt == false) {
     mealontainer.innerHTML = `
@@ -84,3 +93,14 @@ const getIdFromUi = (id) => {
   idValue.value = "";
   return idValueText;
 };
+/* loading */
+const loading = () =>{
+  const loadingButton = document.getElementById('loading');
+  loadingButton.classList.remove('d-none')
+}
+// loading()
+const addLoading = () =>{
+  const loadingButton = document.getElementById('loading');
+  loadingButton.classList.add('d-none')
+}
+// addLoading()
